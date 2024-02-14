@@ -253,6 +253,8 @@
 
   .searchbar-container {
     width: calc( 100% - 16px );
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 
   .search-results-container {
@@ -264,6 +266,7 @@
   .weather-container {
     flex-direction: column;
     width: calc( 100% - 16px );
+    margin-top: 8px;
 
     .container-1 {
       border-bottom-left-radius: 0px;

@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
-        console.log(longitude, latitude);
+        // console.log(longitude, latitude);
         this.locationPermission = true;
         this.weatherService.getNameFromCoords(latitude,longitude).subscribe(
           res => {
@@ -173,7 +173,7 @@ export class DashboardComponent implements OnInit {
     let forecast: forecastWeather;
     this.forecastWeather = [];
     for (let x = 1; x < data.daily.length - 1; x++) {
-      console.log(this.getDate(data.daily[x].dt));
+      // console.log(this.getDate(data.daily[x].dt));
       forecast = {
         date: data.daily[x].dt,
         temperature: Math.round(data.daily[x].temp.day),

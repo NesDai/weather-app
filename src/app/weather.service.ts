@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 })
 export class WeatherService {
   constructor(private http: HttpClient) {}
-
   apiKey: string = 'cdaeb4f739e1dc1c9463eea729fdd345';
   apiKey2: string = 'bd5e378503939ddaee76f12ad7a97608';
 
