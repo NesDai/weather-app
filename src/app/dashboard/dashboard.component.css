@@ -4,7 +4,11 @@
   background: transparent;
   border: 1px solid black;
   border: 0;
-  margin: 40px 100px 40px 100px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
 
   .search {
     display: flex;
@@ -25,7 +29,6 @@
     padding: 16px;
     border: 0px;
     background: transparent;
-    cursor: pointer;
   }
 
   .search-icon {
@@ -40,10 +43,12 @@
 }
 
 .search-results-container {
-  margin: 0 100px 10px 100px;
   background: white;
   border-radius: 15px;
   padding:8px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 984px;
 
   .search-results-btn {
     width:100%;
@@ -66,11 +71,14 @@
 .weather-container {
   text-align: center;
   border-radius: 15px;
-  margin: 20px 100px 0 100px;
   background: white;
   height: 500px;
   display: flex;
   flex-direction: row;
+  width: 1000px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 
   .container-1 {
     flex: 3;
@@ -100,6 +108,10 @@
       font-size: 35px;
       font-weight: 500;
       padding-bottom: 54px;
+
+      .temp-desc {
+        display:none;
+      }
     }
 
     .forecast-container {
@@ -176,7 +188,7 @@
 
       .temp-status {
         font-size: 22px;
-        padding-bottom: 32px;
+        padding-bottom: 56px;
       }
 
       .row {
@@ -228,4 +240,85 @@
   padding: 16px;
   font-size: 16px;
   color: gray;
+}
+
+.no-data {
+  font-size: 24px;
+  text-align: center;
+  padding: 32px;
+  color: gray;
+}
+
+@media screen and (max-width: 1030px) {
+
+  .searchbar-container {
+    width: calc( 100% - 16px );
+  }
+
+  .search-results-container {
+    margin-left: 8px;
+    margin-right: 8px;
+    width:auto;
+  }
+
+  .weather-container {
+    flex-direction: column;
+    width: calc( 100% - 16px );
+
+    .container-1 {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+
+      .forecast-container {
+        transform: scale(0.7);
+      }
+
+      .status {
+        .temp-desc {
+          display:block;
+          padding-top: 16px;
+          font-size: 20px
+        }
+      }
+
+      .temperature {
+        font-size: 120px;
+      }
+    }
+
+    .container-2 {
+      flex-direction: row;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: 15px;
+
+      .sub1 {
+        flex:1;
+      }
+
+      .greeting {
+        font-size: 20px;
+        padding: 32px 8px 8px 8px;
+      }
+
+      .time {
+        font-size: 20px;
+      }
+
+      .temp-info-container {
+        flex:1;
+
+        .temp {
+          display:none;
+        }
+
+        .temp-desc {
+          display: none;
+        }
+
+        .temp-status {
+          display: none;
+        }
+      }
+    }
+  }
 }

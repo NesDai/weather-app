@@ -5,8 +5,9 @@
       (keyup)="onChange($event)"
       placeholder="Search"
       class="input-searchbar"
+      value={{inputText}}
     />
-    <button class="btn-search" (click)="searchLocation()">
+    <button class="btn-search">
       <mat-icon fontIcon="search" class="search-icon"></mat-icon>
     </button>
   </div>
@@ -24,82 +25,99 @@
 <ng-container *ngIf="!searching">
   <div class="weather-container" [@fadeInOut]>
     <div class="container-1">
-      <div class="location-time">
-        <table>
-          <tr>
-            <td style="width: 65%">place, state</td>
-            <td>{{ getDate(currentWeather.date) || "--/--/----" }}</td>
-          </tr>
-        </table>
-      </div>
-      <div class="temperature">{{ currentWeather.temperature || "-" }}°c</div>
-      <div class="status">
-        {{ currentWeather.weather_status || "-" }}
-      </div>
-      <div class="forecast-container" *ngIf="currentWeather">
-        <div class="today">
-          <p class="day-font">Today</p>
-          <p class="temp-font">{{ currentWeather.temperature || "-" }}°</p>
-          <p class="status-font">
-            {{ currentWeather.weather_status || "-" }}
-          </p>
+      <ng-container *ngIf="!locationPermission">
+        <div class="no-data">
+         :&#40;  &nbsp;  &nbsp; No location data
         </div>
-        <div *ngFor="let day of forecastWeather">
-          <div class="other-days">
-            <p class="day-font">{{ getDayOfWeek(day.date) || "-" }}</p>
-            <p class="temp-font">{{ day.temperature || "-" }}°</p>
-            <p class="status-font">{{ day.weather_status || "-" }}</p>
-          </div>
+        <div class="no-data">
+          Please enable location service to see current location weather.
         </div>
-      </div>
-    </div>
-    <div class="container-2">
-      <div class="greeting">
-        {{ getGreeting() || "-" }}
-      </div>
-      <div class="time">
-        {{ currentTime | date : "hh:mm a" || "--:--" }}
-      </div>
-      <div class="temp-info-container">
-        <span class="temp">{{ currentWeather.temperature || "-" }}°c</span>
-        <span class="temp-desc"
-          >Feels like {{ currentWeather.feels_like || "-" }}°c</span
-        >
-        <span class="temp-status">
-          {{ currentWeather.weather_status || "-" }}
-        </span>
-        <div class="row">
+      </ng-container>
+      <ng-container *ngIf="locationPermission">
+        <div class="location-time">
           <table>
             <tr>
-              <td>
-                <mat-icon fontIcon="air" class="icons"></mat-icon>
-              </td>
-              <td>:</td>
-              <td>
-                <span class="text">
-                  {{ currentWeather.wind_speed || "-" }} m/s</span
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <mat-icon fontIcon="water" class="icons"></mat-icon>
-              </td>
-              <td>:</td>
-              <td>
-                <span class="text"> {{ currentWeather.humidity || "-" }}%</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <b>UV</b>
-              </td>
-              <td>:</td>
-              <td>{{ currentWeather.uv_index || "-" }} mW/m2</td>
+              <td style="width: 65%">{{this.currentLocation}}</td>
+              <td>{{ getDate(currentWeather.date) || "--/--/----" }}</td>
             </tr>
           </table>
         </div>
-      </div>
+        <div class="temperature">{{ currentWeather.temperature || "-" }}°c</div>
+        <div class="status">
+          {{ currentWeather.weather_status || "-" }}
+          <span class="temp-desc"
+          >Feels like {{ currentWeather.feels_like || "-" }}°c</span
+        >
+        </div>
+        <div class="forecast-container" *ngIf="currentWeather">
+          <div class="today">
+            <p class="day-font">Today</p>
+            <p class="temp-font">{{ currentWeather.temperature || "-" }}°</p>
+            <p class="status-font">
+              {{ currentWeather.weather_status || "-" }}
+            </p>
+          </div>
+          <div *ngFor="let day of forecastWeather">
+            <div class="other-days">
+              <p class="day-font">{{ getDayOfWeek(day.date) || "-" }}</p>
+              <p class="temp-font">{{ day.temperature || "-" }}°</p>
+              <p class="status-font">{{ day.weather_status || "-" }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
-  </div>
+    <div class="container-2">
+      <ng-container *ngIf="locationPermission">
+        <div class="sub1">
+          <div class="greeting">
+            {{ getGreeting() || "-" }}
+          </div>
+          <div class="time">
+            {{ currentTime | date : "hh:mm a" || "--:--" }}
+          </div>
+        </div>
+        <div class="temp-info-container">
+          <span class="temp">{{ currentWeather.temperature || "-" }}°c</span>
+          <span class="temp-desc"
+            >Feels like {{ currentWeather.feels_like || "-" }}°c</span
+          >
+          <span class="temp-status">
+            {{ currentWeather.weather_status || "-" }}
+          </span>
+          <div class="row">
+            <table>
+              <tr>
+                <td>
+                  <mat-icon fontIcon="air" class="icons"></mat-icon>
+                </td>
+                <td>:</td>
+                <td>
+                  <span class="text">
+                    {{ currentWeather.wind_speed || "-" }} m/s</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-icon fontIcon="water" class="icons"></mat-icon>
+                </td>
+                <td>:</td>
+                <td>
+                  <span class="text"> {{ currentWeather.humidity || "-" }}%</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>UV</b>
+                </td>
+                <td>:</td>
+                <td>{{ currentWeather.uv_index || "-" }} mW/m2</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        </ng-container>
+      </div>
+    </div> 
 </ng-container>

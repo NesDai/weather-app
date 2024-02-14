@@ -25,7 +25,8 @@ export class DashboardComponent implements OnInit {
   searchResults: locationInfo[] = [];
   searching: boolean = false;
   timeout: any = null;
-  loading: boolean = true;
+  locationPermission: boolean = false;
+  currentLocation: string = "";
 
   constructor(private weatherService: WeatherService) {}
 
@@ -37,7 +38,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onChange(event: any) {
-    this.inputText = event.target.value;
+    // this.inputText = event.target.value;
     if (event.target.value === '') {
       this.searchResults = [];
       this.searching = false;
@@ -74,6 +75,9 @@ export class DashboardComponent implements OnInit {
 
   selectLocation(location: locationInfo) {
     this.getWeather(location.lon, location.lat);
+    this.locationPermission = true;
+    this.inputText = "";
+    this.currentLocation = `${location.name}, ${location.state}`;
   }
 
   ngOnDestroy(): void {
@@ -89,6 +93,12 @@ export class DashboardComponent implements OnInit {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
         console.log(longitude, latitude);
+        this.locationPermission = true;
+        this.weatherService.getNameFromCoords(latitude,longitude).subscribe(
+          res => {
+            this.currentLocation = `${res[0].name}, ${res[0].state}`;
+          }
+        )
         this.getWeather(longitude, latitude);
       });
     } else {
@@ -100,7 +110,6 @@ export class DashboardComponent implements OnInit {
     this.weatherService.getWeatherForecastData(lat, lon).subscribe((res) => {
       this.cleanData(res);
       this.searching = false;
-      this.loading = false;
     });
   }
 
